@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-dremio-query",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A custom n8n node to execute SQL queries on Dremio.",
   "main": "dist/nodes/DremioQuery.node.js",
   "types": "dist/nodes/DremioQuery.node.d.ts",
@@ -9,7 +9,9 @@
     "build": "npm run clean && tsc && npm run copy-assets",
     "copy-assets": "node copy-assets.js",
     "start": "node dist/nodes/DremioQuery.node.js",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "echo \"No tests specified\" && exit 0",
+    "lint": "eslint src --ext .js,.ts ",
+    "lint:fix": "eslint src --ext .js,.ts --fix"
   },
   "dependencies": {
     "n8n-core": "^0.100.0",
@@ -22,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/soilidokay/n8n-node-dremio-query.git"
+    "url": "https://github.com/soilidokay/n8n-node-dremio.git"
   },
   "keywords": [
     "n8n",
@@ -35,9 +37,11 @@
   "author": "Tai nguyen",
   "license": "MIT",
   "n8n": {
-    "credentials": [],
+    "credentials": [
+      "Credentials/DremioApi.credentials.js"
+    ],
     "nodes": [
-      "dist/nodes/DremioQuery.node.js"
+      "nodes/DremioQuery.node.js"
     ]
   }
 }

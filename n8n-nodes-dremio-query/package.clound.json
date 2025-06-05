@@ -1,0 +1,32 @@
+{
+  "name": "n8n-nodes-dremio-query",
+  "version": "1.0.5",
+  "description": "A custom n8n node to execute SQL queries on Dremio.",
+  "main": "nodes/DremioQuery.node.js",
+  "types": "nodes/DremioQuery.node.d.ts",
+  "scripts": {
+    "start": "node nodes/DremioQuery.node.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soilidokay/n8n-node-dremio.git"
+  },
+  "keywords": [
+    "n8n",
+    "dremio",
+    "custom",
+    "query",
+    "node",
+    "n8n-community-node-package"
+  ],
+  "author": "Tai nguyen",
+  "license": "MIT",
+  "n8n": {
+    "credentials": [
+      "Credentials/DremioApi.credentials.js"
+    ],
+    "nodes": [
+      "nodes/DremioQuery.node.js"
+    ]
+  }
+}

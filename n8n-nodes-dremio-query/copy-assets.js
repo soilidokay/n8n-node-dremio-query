@@ -15,4 +15,5 @@ function copyFile(src, dest) {
 
 // Đổi đường dẫn này cho đúng file icon của bạn
 copyFile('src/assets/apple-touch-icon.png', 'dist/nodes/dremio.png');
-copyFile('package.json', 'dist/package.json');
+copyFile('package.clound.json', 'dist/package.json');
+copyFile('README.md', 'dist/README.md');
