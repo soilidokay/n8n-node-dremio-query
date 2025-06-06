@@ -13,7 +13,7 @@ export class DremIOClient {
         this.keyStore = KeyStore;
     }
     // Authenticate with Dremio and get token (if not available or expired)
-    private async authenticate(): Promise<void> {
+    public async authenticate(): Promise<void> {
         let token = this.keyStore.getToken();
         if (token) return; // If token is valid, no need to login again
         try {

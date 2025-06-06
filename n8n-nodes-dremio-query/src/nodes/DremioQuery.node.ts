@@ -19,18 +19,6 @@ export class DremioQuery implements INodeType {
         subtitle: '={{$parameter["query"]}}', // Display query in subtitle (better UX)
         properties: [
             {
-                displayName: 'Query',
-                name: 'query',
-                type: 'string',
-                default: '',
-                placeholder: 'SELECT * FROM my_table',
-                description: 'SQL query to execute.',
-                required: true,
-                typeOptions: {
-                    rows: 5,
-                },
-            },
-            {
                 displayName: 'Context',
                 name: 'context',
                 type: 'fixedCollection',
@@ -56,6 +44,18 @@ export class DremioQuery implements INodeType {
                         ],
                     },
                 ],
+            },
+            {
+                displayName: 'Query',
+                name: 'query',
+                type: 'string',
+                default: '',
+                placeholder: 'SELECT * FROM my_table',
+                description: 'SQL query to execute.',
+                required: true,
+                typeOptions: {
+                    rows: 5,
+                },
             },
         ] as INodeProperties[],
         credentials: [
@@ -86,7 +86,7 @@ export class DremioQuery implements INodeType {
         const credentials = await this.getCredentials('dremioApi');
 
         // Create Dremio service connection
-        const service = getDremioService(credentials, credentials.secure as boolean);
+        const service = getDremioService(credentials);
 
         // Execute query
         const dremioContext = service.createContext(...contextArr);
