@@ -14,7 +14,7 @@ export class DremioApi implements ICredentialType {
             required: true,
         },
         {
-			displayName: 'Username',
+            displayName: 'Username',
             name: 'username',
             type: 'string',
             default: '',
@@ -27,6 +27,13 @@ export class DremioApi implements ICredentialType {
             typeOptions: { password: true },
             default: '',
             required: true,
+        },
+        {
+            displayName: 'Allow Self-signed Certificate',
+            name: 'secure',
+            type: 'boolean',
+            default: true,
+            description: 'Allow connections to servers with self-signed SSL certificates',
         },
     ];
 }

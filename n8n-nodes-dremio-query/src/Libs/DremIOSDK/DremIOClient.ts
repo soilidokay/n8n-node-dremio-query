@@ -1,6 +1,8 @@
+import fetch from "node-fetch";
 import { KeyStore } from "./KeyStore";
 import { logger } from "./logger";
 import { DremIOConfig, TokenResponse } from "./model";
+import { Agent } from "https";
 
 export class DremIOClient {
     private config: DremIOConfig;
@@ -10,11 +12,16 @@ export class DremIOClient {
         this.config = config;
         this.keyStore = KeyStore;
     }
-    // Xác thực với Dremio và lấy token (nếu chưa có hoặc hết hạn)
+    // Authenticate with Dremio and get token (if not available or expired)
     private async authenticate(): Promise<void> {
         let token = this.keyStore.getToken();
-        if (token) return; // Nếu token hợp lệ thì không cần login lại
+        if (token) return; // If token is valid, no need to login again
         try {
+            // Create agent for self-signed certificate
+            const agent = this.config.secure
+                ? new Agent({ rejectUnauthorized: false })
+                : undefined;
+
             const response = await fetch(`${this.config.host}/apiv2/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -22,6 +29,7 @@ export class DremIOClient {
                     userName: this.config.username,
                     password: this.config.password,
                 }),
+                agent
             });
 
             if (!response.ok) {
@@ -37,9 +45,19 @@ export class DremIOClient {
             throw new Error("Authentication failed");
         }
     }
-    private async request<T>(endpoint: string, method: string = "GET", body?: any): Promise<T> {
+    private async request<T>(
+        endpoint: string,
+        method: string = "GET",
+        body?: any
+    ): Promise<T> {
         await this.authenticate();
         const token = this.keyStore.getToken();
+
+        // Create agent for self-signed certificate
+        const agent = this.config.secure
+            ? new Agent({ rejectUnauthorized: false })
+            : undefined;
+
         const response = await fetch(`${this.config.host}/api/v3${endpoint}`, {
             method,
             headers: {
@@ -47,6 +65,7 @@ export class DremIOClient {
                 Authorization: `Bearer ${token}`,
             },
             body: body ? JSON.stringify(body) : undefined,
+            agent, // Pass agent to node-fetch
         });
 
         if (!response.ok) {

@@ -2,6 +2,7 @@ export interface DremIOConfig {
     host: string;
     username: string;
     password: string;
+    secure?: boolean;
 }
 // JobGetResponse.ts
 export interface ReflectionRelationship {

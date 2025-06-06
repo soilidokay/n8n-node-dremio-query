@@ -15,7 +15,7 @@ export class KeyStore {
         return `${this.folderPath}/keystore.json`;
     }
 
-    // Load token từ file (nếu có)
+    // Load token from file (if available)
     private loadFromFile(): void {
         if (fs.existsSync(this.filePath)) {
             try {
@@ -27,12 +27,12 @@ export class KeyStore {
         }
     }
 
-    // Lưu token vào file
+    // Save token to file
     private saveToFile(): void {
         fs.writeFileSync(this.filePath, JSON.stringify(this.tokenData, null, 2));
     }
 
-    // Lấy token nếu còn hạn
+    // Get token if still valid
     public getToken(): string | null {
         if (this.tokenData && this.tokenData.expiry > Date.now()) {
             return this.tokenData.token;
@@ -40,7 +40,7 @@ export class KeyStore {
         return null;
     }
 
-    // Lưu token mới vào file
+    // Save new token to file
     public saveToken(token: string, expiresIn: number): void {
         this.tokenData = {
             token,

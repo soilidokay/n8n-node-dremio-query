@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "n8n-core": "^0.100.0",
-    "n8n-workflow": "^0.100.0"
+    "n8n-workflow": "^0.100.0",
+    "node-fetch": "3.3.2"
   },
   "devDependencies": {
     "@types/node": "^16.0.0",

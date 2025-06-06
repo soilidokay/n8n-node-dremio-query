@@ -24,7 +24,7 @@ export class DremIOJob {
             const result = await this.resultAsync<T>(jobId, limit, offset);
 
             if (!result || !result.rows || result.rows.length === 0) {
-                break; // Dừng khi không còn dữ liệu
+                break; // Stop when there is no more data
             }
 
             for (const row of result.rows) {
@@ -34,7 +34,7 @@ export class DremIOJob {
             offset += result.rows.length;
 
             if (offset >= result.rowCount) {
-                break; // Dừng khi đã lấy đủ dữ liệu
+                break; // Stop when all data has been retrieved
             }
         }
     }

@@ -86,7 +86,7 @@ export class DremioQuery implements INodeType {
         const credentials = await this.getCredentials('dremioApi');
 
         // Create Dremio service connection
-        const service = getDremioService(credentials);
+        const service = getDremioService(credentials, credentials.secure as boolean);
 
         // Execute query
         const dremioContext = service.createContext(...contextArr);
